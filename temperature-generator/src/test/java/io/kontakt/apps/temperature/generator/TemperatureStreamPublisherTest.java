@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Value;
 import java.time.Duration;
 import java.time.Instant;
 
-public class TemperatureStreamPublisherTest extends AbstractIntegrationTest {
+class TemperatureStreamPublisherTest extends AbstractIntegrationTest {
 
     @Autowired
     private TemperatureStreamPublisher publisher;
@@ -28,7 +28,7 @@ public class TemperatureStreamPublisherTest extends AbstractIntegrationTest {
             TemperatureReading temperatureReading = new TemperatureReading(20d, "room", "thermometer", Instant.parse("2023-01-01T00:00:00.000Z"));
             publisher.publish(temperatureReading);
             consumer.drain(
-                    consumerRecords -> consumerRecords.stream().anyMatch(r -> r.value().thermometerId().equals(temperatureReading.thermometerId())),
+                    consumerRecords -> consumerRecords.stream().anyMatch(r -> r.value().getThermometerId().equals(temperatureReading.getThermometerId())),
                     Duration.ofSeconds(5)
             );
         }

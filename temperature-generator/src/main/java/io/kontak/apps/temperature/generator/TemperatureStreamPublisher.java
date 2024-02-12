@@ -20,7 +20,8 @@ public class TemperatureStreamPublisher {
     public void publish(TemperatureReading temperatureReading) {
         messageProducer.tryEmitNext(
                 MessageBuilder.withPayload(temperatureReading)
-                        .setHeader("identifier", temperatureReading.thermometerId())
+                        .setHeader(KafkaHeaders.MESSAGE_KEY, temperatureReading.getThermometerId())
+                        .setHeader(KafkaHeaders.PARTITION_ID, temperatureReading.getRoomId())
                         .build()
         );
     }
