@@ -38,3 +38,5 @@ services:
       - 8085:9000
     environment:
       KAFKA_BROKERCONNECT: broker-temp-task:9092
+
+  #todo add database
